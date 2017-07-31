@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.haowei.coolweather.gson.Forecast;
 import com.example.haowei.coolweather.gson.Weather;
+import com.example.haowei.coolweather.service.AutoUpdateService;
 import com.example.haowei.coolweather.util.HttpUtil;
 import com.example.haowei.coolweather.util.JsonResolver;
 import com.example.haowei.coolweather.util.LogUtil;
@@ -246,6 +247,10 @@ public class WeatherActivity extends AppCompatActivity {
         sportText.setText(sport);
 
         weatherLayout.setVisibility(View.VISIBLE);
+
+        //start service
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 
