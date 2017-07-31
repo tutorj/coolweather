@@ -1,6 +1,7 @@
 package com.example.haowei.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.haowei.coolweather.db.City;
 import com.example.haowei.coolweather.db.County;
 import com.example.haowei.coolweather.db.Province;
+import com.example.haowei.coolweather.gson.Weather;
 import com.example.haowei.coolweather.util.HttpUtil;
 import com.example.haowei.coolweather.util.JsonResolver;
 
@@ -97,6 +99,13 @@ public class ChooseAreaFragment extends Fragment {
                     selectedCity = cityList.get(position);
                     queryCounty();
                 }
+                else if (currentLevel == LEVEL_COUNTY) {
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
 
@@ -135,7 +144,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_PROVINCE;
         }
         else {
-            String address = "http://guolin.tech/api/china";
+            String address = "http://guolin.tech/aqi/china";
             queryFromServer(address, "province");
         }
     }
@@ -162,7 +171,7 @@ public class ChooseAreaFragment extends Fragment {
         }
         else {
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode;
+            String address = "http://guolin.tech/aqi/china/" + provinceCode;
             queryFromServer(address, "city");
         }
     }
@@ -189,7 +198,7 @@ public class ChooseAreaFragment extends Fragment {
         else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
+            String address = "http://guolin.tech/aqi/china/" + provinceCode + "/" + cityCode;
             queryFromServer(address, "county");
         }
     }
