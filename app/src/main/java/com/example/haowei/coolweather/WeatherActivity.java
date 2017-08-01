@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -103,7 +104,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipt_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         //drawer
-//        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navButton = (Button) findViewById(R.id.nav_button);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -145,7 +146,13 @@ public class WeatherActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WeatherActivity.this, "菜单功能尚未完善", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(WeatherActivity.this, "菜单功能尚未完善", Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        drawerLayout.openDrawer(Gravity.START);
+                    }
+                });
             }
         });
     }
