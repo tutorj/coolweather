@@ -125,13 +125,13 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         //get from cache
-        /*String bingPic = preferences.getString("bing_pic", null);
+        String bingPic = preferences.getString("bing_pic", null);
         if (bingPic != null) {
-            Glide.with(this).load(bingPic).into(bingPicImg);
+            Glide.with(WeatherActivity.this).load(bingPic).into(bingPicImg);
         }
         else {
             loadBingPic();
-        }*/
+        }
 
         //refresh
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
